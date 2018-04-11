@@ -20,7 +20,9 @@
                  ; Configuration
                  [fi.vm.sade.java-utils/java-properties "0.1.0-SNAPSHOT"]
                  [environ "1.1.0"]
-                 [cprop "0.1.10"]]
+                 [cprop "0.1.10"]
+                 ;S3
+                 [oph/clj-s3 "0.1.0-SNAPSHOT"]]
   :ring {:handler konfo-files.core/app
          :init konfo-files.core/init
          ;:destroy konfo-files.core/destroy
@@ -29,7 +31,8 @@
   :target-path "target/%s"
   :plugins [[lein-ring "0.12.4"]
             [lein-environ "1.1.0"]]
-  :profiles {:test {:dependencies [[ring/ring-mock "0.3.2"]]}
+  :profiles {:test {:dependencies [[ring/ring-mock "0.3.2"]
+                                   [oph/clj-test-utils "0.1.0-SNAPSHOT"]]}
              :uberjar {:ring {:port 8080}}}
   :aliases {"run" ["ring" "server" "3007"]
             "uberjar" ["do" "clean" ["ring" "uberjar"]]})
