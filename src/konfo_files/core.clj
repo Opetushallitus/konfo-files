@@ -1,6 +1,7 @@
 (ns konfo-files.core
   (:require
     [konfo-files.image_fetch :as img]
+    [konfo-files.config :refer [config]]
     [clj-log.access-log :refer [with-access-logging]]
     [compojure.api.sweet :refer :all]
     [ring.middleware.cors :refer [wrap-cors]]
