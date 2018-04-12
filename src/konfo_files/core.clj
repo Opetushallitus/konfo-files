@@ -10,8 +10,12 @@
 
 (defn init []
   (intern 'clj-log.access-log 'service "konfo-files")
-  (intern 'clj-s3.s3-connect 's3-region "eu-west-1")
-  (intern 'clj-s3.s3-connect 's3-bucket "buketti"))
+  (if-let [s3-region (:s3-region config)]
+    (intern 'clj-s3.s3-connect 's3-region s3-region)
+    (throw (IllegalStateException. "Could not read s3-region from configuration!")))
+  (if-let [s3-bucket (:s3-bucket config)]
+    (intern 'clj-s3.s3-connect 's3-bucket s3-bucket)
+    (throw (IllegalStateException. "Could not read s3-bucket from configuration!"))))
 
 (defn img-to-http-response [img]
   (if (nil? img)
@@ -22,7 +26,7 @@
      :Content-lengt (:content-length img)
      ;Note! this stream comes directly from s3 and must be closed properly!
      ;Otherwise http connections to s3 are left open.
-     ;Ring should close stream automatically after http request is sent.
+     ;Ring should close stream automatically after http response is sent.
      :body (:stream img)}))
 
 (def konfo-api

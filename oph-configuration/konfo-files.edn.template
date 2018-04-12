@@ -1,0 +1,4 @@
+{
+ :s3-bucket "{{konfo_files_s3_bucket}}"
+ :s3-region "{{konfo_files_s3_region}}"
+}
