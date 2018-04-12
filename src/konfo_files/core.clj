@@ -1,7 +1,6 @@
 (ns konfo-files.core
   (:require
     [konfo-files.image_fetch :as img]
-    [konfo-files.config :refer [config]]
     [clj-log.access-log :refer [with-access-logging]]
     [compojure.api.sweet :refer :all]
     [ring.middleware.cors :refer [wrap-cors]]
@@ -11,12 +10,7 @@
 
 (defn init []
   (intern 'clj-log.access-log 'service "konfo-files")
-  (if-let [s3-region (:s3-region config)]
-    (intern 'clj-s3.s3-connect 's3-region s3-region)
-    (throw (IllegalStateException. "Could not read s3-region from configuration!")))
-  (if-let [s3-bucket (:s3-bucket config)]
-    (intern 'clj-s3.s3-connect 's3-bucket s3-bucket)
-    (throw (IllegalStateException. "Could not read s3-bucket from configuration!"))))
+  (img/init-s3-connection))
 
 (defn img-to-http-response [img]
   (if (nil? img)
