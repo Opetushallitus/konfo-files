@@ -16,9 +16,8 @@
   (if (nil? img)
     (not-found)
     {:status 200
-     :headers {}
-     :Content-type (:content-type img)
-     :Content-lengt (:content-length img)
+     :headers { "Content-Type" (str (:content-type img))
+                "Content-Length" (str (:content-length img))}
      ;Note! this stream comes directly from s3 and must be closed properly!
      ;Otherwise http connections to s3 are left open.
      ;Ring should close stream automatically after http response is sent.
