@@ -1,0 +1,27 @@
+sudo: required
+language: clojure
+jdk:
+  - oraclejdk8
+services:
+  - docker
+
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: "QLltB7nVy8k8RoMWZbTclbEoRkj7/O5bnnbeMSlhITCj/EykPrpT3/d5VFqriXD9uyaO2Z2H1IWwnN7d54iDk3w2f9x1I6mkx+SY9HNBPJ3jmYvKGoH5zMdWpE2i9LbvNmtkT6wReviYzMHyEe2khgUuJk5TUytlP9LjRIB/MkrGCmXioKSY2V+o459cSbZ6ji0BDboDA56Zt1gW1KE8vGLww2b1/baOuOr+wY68wa6WZGONmSL+xExd3GUDt10jcgNnTVEVRUilHcTi9H1nazCeyC/wAs8/lXLR/7LZrY5dq6mSK/jk8ihwKagQIcDd9dSQMHR3cBepU4yiMFOlIxp8EVwoQ7hrQrnqgQTBjWEt4CowO4GTORW3nf8vVDny15RoWAaVJk8ZkQpKc4pLEpr8Xm48/I9XuQ76LSBy7oaSuS92eMya+2g1gCX/Aa+EeQZWEiGggruvJiegwWsJ4J5vMdZsrc2fM7fb+Ti+CYO1Ytj2s5CrtgUV1TqlMJzFrGJFSiSYDgOBprqYevH2p/OdnKl90QLl8CTAvqQavICxbVs8MJrJwhjPCwCCCS/o1f9isAi2wtVVKQnLtE5Qa6q2eM9hAYXbfGNH4gSPmZIRV0wyuZUWN4iX4TCXskA7o+3nzqqLDgOD7km0498AexwPiBO3F5wXurhNDNPEZbo="
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "QhK30JFQmuHRARaSUsKLTvzdR96D2KEXDdxYfP4H9GxcE8/GB+TA3wPvY96+OZsXpRtAcjx13P3l0tQ9T0YIHdPHK0eEo2bagpqDoytqcg11bssJhFNmQixHiW5L9PWs7Uc9FBtQC2qISQhWC5NmQgQoMgAlX6+aOG1YJ/7iPG1vI4La6IIWDtupU80BDu7Hl4CJ9clBiwBSjFiT1Bw+M7wT4xjS1jnp1+m7YAiSX2utTU7N9H+TO5B3Hh+t77KumeearyTKWboG/PpkZE+gRCOfRaOMJ3iOCzlgw3l3h078Bsy+tzdfR6qnxGlTSeDoK74rV0eJnbkYrovZ3rxzu1klM3xktHKBMfNhLaTzSU3uGXLkz3YRT1TvmaxYzSHTGHs5yJiIpzYMECwy+1/B/U5MtfaaHFw5d/AV5CnzOrOWQXcvV3CeXNGRBvvcBP1jSF7AwC5YFPBArmEWGLYWIwdmOxkgzaPAl7iZVvcOEJFaKcfoqxoqMJ6TOVu9SqVBAZ/Itp51mOybdHjlBMwt2CeLpj1TRH6yB3QIcnZ59j+pzkMtEKSQyTcMXX4jAty+TsFIGFHrrPMIAxTs6/oWvWIskN83Buj4FADISdLCqipdOfV9zDgss0WL7rOiq7gq0CC3CLW7ZUO0CWH606NTlmZeZLxb851HF77Wgj2b5x8="
+
+install:
+  - git clone https://github.com/Opetushallitus/ci-tools.git
+  - source ci-tools/common/setup-tools.sh
+
+script:
+  - lein uberjar
+  - ls -la target
+  #- mv target/konfo-files.jar $DOCKER_BUILD_DIR/artifact/konfo-files.jar
+  - cp -vr oph-configuration $DOCKER_BUILD_DIR/config/
+
+  - export BASE_IMAGE="base-legacy:0.1"
+  - ./ci-tools/common/pull-image.sh
+  - ./ci-tools/build/build-fatjar.sh konfo-files
