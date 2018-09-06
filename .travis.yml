@@ -18,8 +18,7 @@ install:
 
 script:
   - lein uberjar
-  - ls -la target
-  #- mv target/konfo-files.jar $DOCKER_BUILD_DIR/artifact/konfo-files.jar
+  - mv target/uberjar/konfo-files-*-standalone.jar $DOCKER_BUILD_DIR/artifact/konfo-files.jar
   - cp -vr oph-configuration $DOCKER_BUILD_DIR/config/
 
   - export BASE_IMAGE="base-legacy:0.1"
