@@ -1,0 +1,4 @@
+{
+ :s3-bucket "opintopolku-hahtuva-koulutusinformaatio"
+ :s3-region "eu-west-1"
+}

@@ -33,6 +33,10 @@
             [lein-environ "1.1.0"]]
   :profiles {:test {:dependencies [[ring/ring-mock "0.3.2"]
                                    [oph/clj-test-utils "0.1.0-SNAPSHOT"]]}
+             :ci-test {:dependencies [[ring/ring-mock "0.3.2"]
+                                     [oph/clj-test-utils "0.1.0-SNAPSHOT"]]
+                       :jvm-opts ["-Dlog4j.configurationFile=test/resources/log4j2.properties" "-Dconf=ci-configuration/konfo-files.edn"]}
              :uberjar {:ring {:port 8080}}}
   :aliases {"run" ["ring" "server" "3007"]
+            "ci-test" ["with-profile" "+ci-test" "test"]
             "uberjar" ["do" "clean" ["ring" "uberjar"]]})

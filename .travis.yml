@@ -17,6 +17,7 @@ install:
   - source ci-tools/common/setup-tools.sh
 
 script:
+  - lein ci-test
   - lein uberjar
   - mv target/uberjar/konfo-files-*-standalone.jar $DOCKER_BUILD_DIR/artifact/konfo-files.jar
   - cp -vr oph-configuration $DOCKER_BUILD_DIR/config/
