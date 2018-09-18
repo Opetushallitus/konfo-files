@@ -19,6 +19,7 @@ install:
 script:
   - lein ci-test
   - lein uberjar
+
   - mv target/uberjar/konfo-files-*-standalone.jar $DOCKER_BUILD_DIR/artifact/konfo-files.jar
   - cp -vr oph-configuration $DOCKER_BUILD_DIR/config/
 
@@ -29,3 +30,5 @@ script:
 deploy:
   provider: script
   script: ./ci-tools/build/upload-image.sh konfo-files
+  on:
+    all_branches: true
