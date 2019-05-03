@@ -14,8 +14,8 @@ S3-toiminnallisuuksia voidaan testata mock-testeillä, jotka pystyy ajamaan kome
 
 *Huom!* Vaatii s3 bucketin ja sovelluksen ajamisen AWS:ssä autentikointia varten! Ei toimi tällä hetkellä!
 
-Lokaalia ajoa varten kopioi konfiguraatiotiedoston template `dev-configuration/konfo-backend.end.template`
-tiedostoksi `dev-configuration/konfo-backend.edn` ja lisää tiedostoon oikeat arvot:
+Lokaalia ajoa varten kopioi konfiguraatiotiedoston template `dev-configuration/konfo-files.edn.template`
+tiedostoksi `dev-configuration/konfo-files.edn` ja lisää tiedostoon oikeat arvot:
 
 ```
 {
