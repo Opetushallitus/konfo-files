@@ -5,6 +5,10 @@ jdk:
 services:
   - docker
 
+cache:
+  directories:
+  - $HOME/.m2
+
 env:
   global:
     # AWS_ACCESS_KEY_ID
@@ -19,9 +23,16 @@ install:
 script:
   - lein ci-test
   - lein uberjar
+
   - mv target/uberjar/konfo-files-*-standalone.jar $DOCKER_BUILD_DIR/artifact/konfo-files.jar
   - cp -vr oph-configuration $DOCKER_BUILD_DIR/config/
 
-  - export BASE_IMAGE="base-legacy:0.1"
+  - export BASE_IMAGE="baseimage-fatjar:master"
   - ./ci-tools/common/pull-image.sh
   - ./ci-tools/build/build-fatjar.sh konfo-files
+
+deploy:
+  provider: script
+  script: ./ci-tools/build/upload-image.sh konfo-files
+  on:
+    all_branches: true
