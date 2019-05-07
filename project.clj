@@ -11,7 +11,7 @@
                  [ring/ring-jetty-adapter "1.6.3"]
                  [ring-cors "0.1.11"]
                  ; Logging
-                 [oph/clj-log "0.1.0-SNAPSHOT"]
+                 [oph/clj-log "0.2.2-SNAPSHOT"]
                  [org.clojure/tools.logging "0.4.0"]
                  [org.apache.logging.log4j/log4j-api "2.9.0"]
                  [org.apache.logging.log4j/log4j-core "2.9.0"]
@@ -22,7 +22,7 @@
                  [environ "1.1.0"]
                  [cprop "0.1.10"]
                  ;S3
-                 [oph/clj-s3 "0.1.0-SNAPSHOT"]]
+                 [oph/clj-s3 "0.2.2-SNAPSHOT"]]
   :ring {:handler konfo-files.core/app
          :init konfo-files.core/init
          ;:destroy konfo-files.core/destroy
@@ -32,9 +32,9 @@
   :plugins [[lein-ring "0.12.4"]
             [lein-environ "1.1.0"]]
   :profiles {:test {:dependencies [[ring/ring-mock "0.3.2"]
-                                   [oph/clj-test-utils "0.1.0-SNAPSHOT"]]}
+                                   [oph/clj-test-utils "0.2.3-SNAPSHOT"]]}
              :ci-test {:dependencies [[ring/ring-mock "0.3.2"]
-                                     [oph/clj-test-utils "0.1.0-SNAPSHOT"]]
+                                     [oph/clj-test-utils "0.2.3-SNAPSHOT"]]
                        :jvm-opts ["-Dlog4j.configurationFile=test/resources/log4j2.properties" "-Dconf=ci-configuration/konfo-files.edn"]}
              :uberjar {:ring {:port 8080}}}
   :aliases {"run" ["ring" "server" "3007"]
