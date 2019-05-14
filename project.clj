@@ -3,6 +3,7 @@
   :repositories [["oph-releases" "https://artifactory.opintopolku.fi/artifactory/oph-sade-release-local"]
                  ["oph-snapshots" "https://artifactory.opintopolku.fi/artifactory/oph-sade-snapshot-local"]
                  ["ext-snapshots" "https://artifactory.opintopolku.fi/artifactory/ext-snapshot-local"]]
+  :managed-dependencies [[org.flatland/ordered "1.5.7"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
                  ; Rest + server
                  [metosin/compojure-api "1.1.11"]
@@ -22,7 +23,12 @@
                  [environ "1.1.0"]
                  [cprop "0.1.10"]
                  ;S3
-                 [oph/clj-s3 "0.2.2-SNAPSHOT"]]
+                 [oph/clj-s3 "0.2.2-SNAPSHOT"]
+                 ; JAXB-fix for Java >= 9
+                 [javax.xml.bind/jaxb-api "2.2.11"]
+                 [com.sun.xml.bind/jaxb-core "2.2.11"]
+                 [com.sun.xml.bind/jaxb-impl "2.2.11"]
+                 [javax.activation/activation "1.1.1"]]
   :ring {:handler konfo-files.core/app
          :init konfo-files.core/init
          ;:destroy konfo-files.core/destroy
