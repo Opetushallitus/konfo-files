@@ -32,7 +32,7 @@
   :ring {:handler konfo-files.core/app
          :init konfo-files.core/init
          ;:destroy konfo-files.core/destroy
-         :browser-uri "konfo-files"}
+         :browser-uri "konfo-files/swagger"}
   :jvm-opts ["-Dlog4j.configurationFile=test/resources/log4j2.properties" "-Dconf=dev-configuration/konfo-files.edn"]
   :target-path "target/%s"
   :plugins [[lein-ring "0.12.4"]
